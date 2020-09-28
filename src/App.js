@@ -19,15 +19,16 @@ import logo from './img/morning.jpeg';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
-import TextField from '@material-ui/core/TextField';
-
+import './App.css'
 class App extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            newItem: "",
+            list: [],
             file: null,
-            text: '',
+            sub: false,
             video: null,
             name: 'Abhi Gupta',
             contributions: {
@@ -72,37 +73,25 @@ class App extends Component {
         }
     }
 
-    handleFileChange = e => {
-        this.setState({ file: e.target.files[0] });
-    };
+    addItem(toDoValue) {
+        if (toDoValue !== "") {
+            var newItem = {
+                id: Date.now(),
+                value: toDoValue,
+                isDone: false,
+            };
+            const list = [...this.state.list];
+            list.push(newItem);
 
-    handleChange = e => {
-        this.setState({ text: e.target.value });
-    };
+            this.setState({
+                list,
+                newItem: "",
+            });
+        }
+    }
 
-    handleVideoChange = e => {
-        this.setState({ video: e.target.value });
-    };
-    fileData = () => {
-        console.log(this.state.file, "wertyui")
-        if (this.state.file) {
-            return (
-                <div>
-                    <img style={{ height: 400, paddingTop: 56.25 }} src={this.state.file} />
-                </div>
-            )
-        } else if (this.state.video) {
-            return (<div>
-                {/* <video width="320" height="240" controls>
-                    <source src={this.state.video} type="video/mp4">
-                        <source src="movie.ogg" type="video/ogg">
-                            Your browser does not support the video tag.
-                </video> */}
-            </div>)
-        }
-        else {
-            return (<div><h4>Choose before Pressing the Upload button</h4></div>)
-        }
+    updateInput(input) {
+        this.setState({ newItem: input });
     }
     render() {
         console.log(this.state.text, "swa")
@@ -116,7 +105,7 @@ class App extends Component {
                         </IconButton>
                         <Typography variant="h6" color="inherit">
                             Friend
-          </Typography>
+                </Typography>
                     </Toolbar>
                 </AppBar>
                 <Container maxWidth="sm">
@@ -128,15 +117,33 @@ class App extends Component {
                             <h2>{this.state.name}</h2>
                         </Grid>
                         <Grid item xs={6} style={{ textAlign: "center", marginTop: 15 }}>
-                            {/* <Button onClick={this.fileData} variant="contained">Upload Pic!</Button> */}
+                            <Button onClick={this.fileData} variant="contained">Upload Pic!</Button>
                         </Grid>
                     </Grid>
-                    <TextField style={{ width: 553, marginBottom: 26 }} id="outlined-basic" label="Text" variant="outlined" onChange={this.handleChange} />
-                    <div>
-                        <input type="file" onChange={this.handleFileChange} />
-                        <Button onClick={this.fileData} variant="contained">Upload Pic!</Button>
+                    <div className="toDoInputBox">
+                        <div className="inputBox">
+                            <input
+                                type="text"
+                                placeholder="write something..."
+                                required
+                                value={this.state.newItem}
+                                onChange={(e) => this.updateInput(e.target.value)}
+                            />
+                        </div>
+                        <div className="submitButton">
+                            <button onClick={() => this.addItem(this.state.newItem)}>
+                                POST
+                            </button>
+                        </div>
                     </div>
-                    {this.state.text ? <Card style={{ maxWidth: 345 }} style={{ marginBottom: 10, padding: 12 }}><p>{this.state.text}</p></Card> : ""}
+                    <div className="toDoList">
+                        <ul>
+                            {this.state.list.map((item) => {
+                                return <li key={item.id}>{item.value}</li>;
+                            })}
+                        </ul>
+                    </div>
+
 
                     {this.state.contributions.nameValuePairs.map((item) =>
                         <Card style={{ maxWidth: 345 }} style={{ marginBottom: 10 }}>

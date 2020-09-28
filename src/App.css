@@ -1,8 +1,47 @@
-body {
-  padding: 5px
+.body {
+  background-color: lightpink;
 }
-/* .pro_img{
-  height: 10px;
-  width: 10px;
+
+.toDoInputBox {
+  margin-left: 10px;
+  display: flex;
+  /* margin-top: 39px; */
+}
+.toDoInputBox input {
+  border: ridge;
+  border-color: white;
   border-radius: 5px;
-} */
+  font-size: 25px;
+  height: 60px;
+  width: 440px;
+  font-style: italic;
+  font-family: fantasy;
+  padding-left: 20px;
+}
+.toDoInputBox button {
+  color: white;
+  border-color: white;
+  border-radius: 5px;
+  font-style: italic;
+  background-color: rgb(172, 165, 165);
+  height: 60px;
+  width: 86px;
+  margin-left: 10px;
+  font-size: 18px;
+  border: ridge;
+}
+.toDoList ul {
+  margin-top: 30px;
+  list-style-type: none;
+  border: 2px black;
+  font-size: 24px;
+  font-style: italic;
+}
+
+.toDoList ul li {
+  border-radius: 10px;
+  background-color: mistyrose;
+  padding: 10px;
+  border: 1px solid #bfbfbf;
+  margin-bottom: 20px;
+}
